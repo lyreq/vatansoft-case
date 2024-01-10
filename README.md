@@ -1,66 +1,226 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+
+
+
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## VatanSoft Test Case
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Laravel'in pasaport kütüphanesini kullandım. Üye e-posta ve şifre bilgilerini JSON formatında alıp token oluşturdum. Daha sonra bu token ile diğer hizmetlere erişim verdim. Bu token olmadan diğer hizmetlere erişilemez.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Proje Kurulumu
 
-## Learning Laravel
+1) Composer'ı kurun
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+		composer install
+2) Yeni bir env dosyası oluşturun
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+		cp .env.example .env	
+3) Yeni bir key oluşturun
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+		php artisan key:generate
+4) Env dosyasında veritabanı bağlantısını kurun.
 
-## Laravel Sponsors
+		DB_DATABASE=db_name
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+		DB_USERNAME=db_user
 
-### Premium Partners
+		DB_PASSWORD=db_password
+	
+5) Projeyi migrate edip aynı zamanda seedleri çalıştırıp örnek dataları çekelim
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+		php artisan migrate --seed
+6) Passport kütüphanesini çalıştıralım
 
-## Contributing
+		php  artisan  passport:install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+7) Projeyi çalıştıralım
 
-## Code of Conduct
+		php artisan serve
+		
+8) Kuyruğu çalıştıralım
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+	    php artisan queue:work  
 
-## Security Vulnerabilities
+9) İsterseniz test işlemlerini çalıştırabilirsiniz.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+	    php artisan test
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## ## Servislerin Kullanımı
+####	
+Postman koleyksiyonuna [buradan](https://drive.google.com/file/d/16F-2sKiVqg3zBLyq1vRxVXUKQouUSRCF/view?usp=sharing) erişebilirsiniz 
+Postman Koleksiyonun değişkenler bölümünde base-url ve token bilgilerini kendinize göre ayarlamayı unutmayın.
+Seed çalıştırırsanız varsayılan giriş bilgileriniz aşağıdaki gibi olacaktır. 
+
+	    Email: info@vatansoft.com	
+	    Password: password
+
+## 1. POST /api/auth/login:
+Kullanıcı giriş işlemi içindir. Giriş yaptıktan sonra token ve token tipi döndürecektir.
+
+Örnek İstek (JSON):
+
+    {
+	    "email":"info@vatansoft.com",
+	    "password":  "password"
+    }
+
+Örnek Sonuç:
+
+    {
+    "status": "success",
+    "code": 200,
+    "message": "Transaction Successfuly!",
+    "data": {
+        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTJkYzhhNzg0YjNlNjc5ZmVmNmUxMWYzMmZjMDAzYWE1NzljMDVlZWU4ZmNhZGY3Y2VkNTc2OGVjZjk5YzgyNTM0MWNiZThjMjQzY2JlMDQiLCJpYXQiOjE3MDQ4NzE3OTMuNTM5NDkzLCJuYmYiOjE3MDQ4NzE3OTMuNTM5NDk0LCJleHAiOjE3MzY0OTQxOTMuNTM1MDY0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.cIK-VkeSXqEPUZoiBYzCzVEGP147712fPBZBJjAM5KkhE6DdpFzhvaqHTf3TPJpqNJW9w5X5FCbPhjrXSKn5dIlBavOKSFCfA3ZDFOQ2Q_ojqRVr0XorcxPj209RAmJeJ0w6IUe6tYGbPtg6Sr8mqUvT9UrQp2wTI37llUzXVt-qGwJsLjdn_lutCFbZQwb5TWw6K3RxCYvyskdYtQDlu4gPkUnqX8hL8Nu-TzChAQomDmvucTqvLnIvejXmtZjpNmcw0uoYk47szh9-U7eWBUfPyENUCWnDHW5zGZcZfgt-RzJRApuSl49SRyDxCkyl_wMBldkrZfvgDa7bu-dsvxPliK3t7g_OStM4a89HdtknPf2Bc81t3KysRqLWU8HhOHC48eD-U-HHzO7aIisB5sBLU9QBxhMdfY_bub99J9b-KR6Ujx4VN2A5LHFjaBDsPi4zjiq5lWfzV6TM-f61TF-FOYFbA9Vxpi2M2jqh_P4HWJdoVoV6r8geBiRaFvt-XH6fX2ylBuLhB5hG6gAq8CwVO91vYRIIIqElwQ65LvPtxY0bullyIgQ9PGM0fkJnKSBgkzzIayjsORYSmq098Ex4qE6EzOV1TdcFPa6LlUzqJ1ML9BhTZizt1KXoX1jOas7oWdGfoqL3yhov3lyUG3KQWQNP2GtWBSnNpn0_4WQ",
+        "token_type": "Bearer"
+    }
+}
+
+## 2. GET /api/auth/register:
+Kullanıcı kayıt işlemi içindir. Kayıt olduktan sonra token ve token tipi döndürecektir.
+Örnek İstek (JSON):
+
+    {
+
+		"name":  "Test Test",
+		"email":  "test1@gmail.com",
+		"password":  "password",
+		"password_confirmation":  "password"
+
+	}
+
+
+Örnek Sonuç:
+
+    {
+    "status":  "success",
+    "code":  200,   
+    "message":  "Transaction Successfuly!",
+    "data":  {
+    "access_token":  "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMWQ3OThhNDMxMzU1YWRkNjVjODUzZWU2NWM3Y2NjY2JjZGNjYzlmNjczNjI4Y2ZiMzViNmU2MDIxZmVjNWYxNjcyY2EzZTg0ZGM5NjA1ZTIiLCJpYXQiOjE3MDQ4Mzg4NzQuMTU0NDIsIm5iZiI6MTcwNDgzODg3NC4xNTQ0MjEsImV4cCI6MTczNjQ2MTI3NC4xNTMzMzUsInN1YiI6IjIiLCJzY29wZXMiOltdfQ.mbb41iqnbzs94cp9skJqeUYn3PasXFAYBgoPecIrjfnC8rrSeTzUIZz5Y8ImQvoYXGV7uBuV40qlsIOVo_tdoxJGeWeuWy3zp_9tWLWFI8Jzsp-IKHam1m4IsRZglCq0rc7hbkemeIkJ50YiZbhr_nmhh9rj06OCHyb1ykc29XDMwEY8ctj1EnmRCSPu4AqbHV3F1HgNWwW7xf-UaEFk53b7ABrsTaA9qSARlLOhva2uUQcVcp1186kbDaGA1EzPz5eVttlsuIb840fW9NPP_Z0RVwyuVT09DpJ8u5u8ENqdY9CSue3fxxSUw8m6Amwx9-JAsbmNhMXKdGlMHKKTMkA15UCfciUsk7avtt_ZcpYbsmr_lRY9qkxsAUTRlY7-pArmVrLGlQ0s7cOfuKeKPcMjfUSrm4wPvYslyAuaArB74gkBGrMCcMI85hNsByrHxzVnQ4nKMY3tWDu8ZC4a1jOEHIjhAuiEUig4qD0k_czfexTmkIs86YPlG0qvG-UU3nyg-SI1yOhLhnZwK8O1qzSCYAbMFFBivyGoeSUBHS8VsJ9XAT1Dm8Ic__6e9BAZzUqEHE9Kzva7uLUO51uPQtSxl05pc5XAw6b1Oo5AtOxW1unhafNFQL0ANZiqCzG-jmCwxDLyRBDQRu2t8Y-A97Po554EBT0kJXwdG92fTrE",
+    "token_type":  "Bearer"
+    }
+    }
+
+
+## 3. Post /api/sms/send:
+SMS gönderme servisidir. Çoklu sms gönderilebilir. Sisteme gönderilen SMS'ler 500'ü aştığında kuyruğa atıp job ile sms gönderim yapmaktadır.
+Örnek İstek (JSON):
+
+    [
+	    {
+	    "number":  "123123123",
+	    "message":  "test mesaj 1"
+	    },
+	    {
+	    "number":  "123123123",
+	    "message":  "test mesaj 1"
+	    }
+    ]
+
+Örnek Sonuç:
+
+        {
+		    "status":  "success",
+		    "code":  200,
+		    "message":  "Transaction Successfuly!"
+	    }
+
+## 4. GET /api/sms:
+Tüm SMS isteklerinin listelesini verir. Sorgu da GET ile send_time gönderilirse o tarihden önceki gönderilen sms istekleri listelenir
+
+Örnek İstek:
+
+| Sorgu Paramteresi | İstek Tipi | **Örnek Değer** | Zorunluluk |
+| --- | --- | --- |  --- |
+| send_time | GET | 2012-07-14 23:32:36 | Zorunlu Değil |
+
+Örnek Sonuç:
+
+    {
+       "status":"success",
+       "code":200,
+       "message":"Transaction Successfuly!",
+       "data":[
+          {
+             "id":1,
+             "user_id":1,
+             "number":"12094682430",
+             "message":"Est rerum officia adipisci asperiores dolorem et. Sunt qui magnam qui. Enim ea laudantium qui deserunt est cum ducimus. Minus voluptatem natus rerum est dolorem.",
+             "send_time":"2005-06-14 21:06:30",
+             "status":0,
+             "created_at":"2024-01-10T00:42:42.000000Z",
+             "updated_at":"2024-01-10T00:42:42.000000Z",
+             "user":{
+                "id":1,
+                "name":"Test",
+                "email":"info@vatansoft.com",
+                "email_verified_at":"2024-01-10T00:42:41.000000Z",
+                "created_at":"2024-01-10T00:42:42.000000Z",
+                "updated_at":"2024-01-10T00:42:42.000000Z"
+             }
+          },
+          {
+             "id":2,
+             "user_id":1,
+             "number":"15209652895",
+             "message":"Ad consectetur optio ut nesciunt. Omnis error aspernatur vel molestiae deserunt sit. Aliquam et qui ut dolor dolores. Alias veritatis rerum accusantium labore ratione vitae.",
+             "send_time":"1990-10-02 13:26:08",
+             "status":0,
+             "created_at":"2024-01-10T00:42:42.000000Z",
+             "updated_at":"2024-01-10T00:42:42.000000Z",
+             "user":{
+                "id":1,
+                "name":"Test",
+                "email":"info@vatansoft.com",
+                "email_verified_at":"2024-01-10T00:42:41.000000Z",
+                "created_at":"2024-01-10T00:42:42.000000Z",
+                "updated_at":"2024-01-10T00:42:42.000000Z"
+             }
+          }
+       ]
+    }
+
+## 5. GET /api/sms/{id}
+Gönderilen SMS isteğinin detayını verdiği servistir. sms id 'si istek de gönderilmesi zorunludur.
+
+Örnek İstek:
+
+| Sorgu Paramteresi | İstek Tipi | **Örnek Değer** | Zorunluluk |
+| --- | --- | --- |  --- |
+| id | GET | 1 | Zorunlu |
+
+Sample Result:
+
+    {
+       "status":"success",
+       "code":200,
+       "message":"Transaction Successfuly!",
+       "data":{
+          "id":1,
+          "user_id":1,
+          "number":"12094682430",
+          "message":"Est rerum officia adipisci asperiores dolorem et. Sunt qui magnam qui. Enim ea laudantium qui deserunt est cum ducimus. Minus voluptatem natus rerum est dolorem.",
+          "send_time":"2005-06-14 21:06:30",
+          "status":0,
+          "created_at":"2024-01-10T00:42:42.000000Z",
+          "updated_at":"2024-01-10T00:42:42.000000Z",
+          "user":{
+             "id":1,
+             "name":"Test",
+             "email":"info@vatansoft.com",
+             "email_verified_at":"2024-01-10T00:42:41.000000Z",
+             "created_at":"2024-01-10T00:42:42.000000Z",
+             "updated_at":"2024-01-10T00:42:42.000000Z"
+          }
+       }
+    }

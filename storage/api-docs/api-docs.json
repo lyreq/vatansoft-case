@@ -1,0 +1,164 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Dokümantasyonu",
+        "description": "VatanSoft Case Swagger",
+        "contact": {
+            "email": "yasin@yasintimur.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/sms": {
+            "get": {
+                "tags": [
+                    "SMS"
+                ],
+                "summary": "SMS raporlarını listeler",
+                "operationId": "f0ef672a8d0cd49a1989a32a8836a437",
+                "parameters": [
+                    {
+                        "name": "send_time",
+                        "in": "query",
+                        "description": "Bu tarihten önce gönderilen SMS'ler listelenir (zorunlu değil)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SMS listesi başarıyla döndürüldü",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SmsDetail"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Geçersiz istek"
+                    },
+                    "401": {
+                        "description": "Yetkisiz erişim"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "LoginRequest": {
+                "properties": {
+                    "email": {
+                        "description": "Kullanıcı email adresi",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "description": "Kullanıcı şifresi",
+                        "type": "string",
+                        "format": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterRequest": {
+                "required": [
+                    "name",
+                    "email",
+                    "password",
+                    "password_confirmation"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Kullanıcının tam adı",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "Kullanıcı email adresi",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "description": "Kullanıcı şifresi",
+                        "type": "string",
+                        "format": "password"
+                    },
+                    "password_confirmation": {
+                        "description": "Şifrenin tekrarı",
+                        "type": "string",
+                        "format": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "SendSmsRequest": {
+                "required": [
+                    "number",
+                    "message"
+                ],
+                "properties": {
+                    "number": {
+                        "description": "Alıcının telefon numarası",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "Gönderilecek mesaj",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "SmsDetail": {
+                "title": "SMS Detail",
+                "description": "Detaylı SMS bilgisi",
+                "properties": {
+                    "id": {
+                        "description": "SMS ID",
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "description": "Kullanıcı ID",
+                        "type": "integer"
+                    },
+                    "number": {
+                        "description": "Alıcının telefon numarası",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "Gönderilen mesaj",
+                        "type": "string"
+                    },
+                    "send_time": {
+                        "description": "Gönderim zamanı",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authentication",
+            "description": "Auth operations"
+        },
+        {
+            "name": "SMS",
+            "description": "SMS operations"
+        }
+    ]
+}

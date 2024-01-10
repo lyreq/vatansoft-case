@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\{{ClassName}};
+
+class {{ClassName}}Repository
+{
+    public function getAll()
+    {
+        return {{ClassName}}::all();
+    }
+
+    public function getById($id)
+    {
+        return {{ClassName}}::findOrFail($id);
+    }
+
+    public function create(array $data)
+    {
+        return {{ClassName}}::create($data);
+    }
+
+    public function update($id, array $data)
+    {
+        ${{camelCaseClassName}} = $this->getById($id);
+        ${{camelCaseClassName}}->update($data);
+        return ${{camelCaseClassName}};
+    }
+
+    public function delete($id)
+    {
+        ${{camelCaseClassName}} = $this->getById($id);
+        ${{camelCaseClassName}}->delete();
+    }
+}
