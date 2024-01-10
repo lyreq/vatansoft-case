@@ -118,7 +118,7 @@ Kullanıcı kayıt işlemi içindir. Kayıt olduktan sonra token ve token tipi d
     }
 
 
-## 3. Post /api/sms/send:
+## 3. POST /api/sms/send:
 SMS gönderme servisidir. Çoklu sms gönderilebilir. Sisteme gönderilen SMS'ler 500'ü aştığında kuyruğa atıp job ile sms gönderim yapmaktadır.
 Örnek İstek (JSON):
 
