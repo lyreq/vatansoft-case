@@ -48,6 +48,12 @@ Laravel'in pasaport kütüphanesini kullandım. Üye e-posta ve şifre bilgileri
 8) Kuyruğu çalıştıralım
 
 	    php artisan queue:work  
+	    
+9) Swagger'ı generate edelim
+
+	     php artisan l5-swagger:generate
+
+  
 
 9) İsterseniz test işlemlerini çalıştırabilirsiniz.
 
@@ -140,7 +146,7 @@ Tüm SMS isteklerinin listelesini verir. Sorgu da GET ile send_time gönderilirs
 
 Örnek İstek:
 
-| Sorgu Paramteresi | İstek Tipi | **Örnek Değer** | Zorunluluk |
+| Sorgu Parametresi | İstek Tipi | **Örnek Değer** | Zorunluluk |
 | --- | --- | --- |  --- |
 | send_time | GET | 2012-07-14 23:32:36 | Zorunlu Değil |
 
@@ -195,7 +201,7 @@ Gönderilen SMS isteğinin detayını verdiği servistir. sms id 'si istek de g�
 
 Örnek İstek:
 
-| Sorgu Paramteresi | İstek Tipi | **Örnek Değer** | Zorunluluk |
+| Sorgu Parametresi | İstek Tipi | **Örnek Değer** | Zorunluluk |
 | --- | --- | --- |  --- |
 | id | GET | 1 | Zorunlu |
 
