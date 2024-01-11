@@ -62,7 +62,7 @@ Laravel'in pasaport kütüphanesini kullandım. Üye e-posta ve şifre bilgileri
 
 ## ## Servislerin Kullanımı
 ####	
-Postman koleyksiyonuna [buradan](https://drive.google.com/file/d/16F-2sKiVqg3zBLyq1vRxVXUKQouUSRCF/view?usp=sharing) erişebilirsiniz 
+Postman koleksiyonuna [buradan](https://drive.google.com/file/d/16F-2sKiVqg3zBLyq1vRxVXUKQouUSRCF/view?usp=sharing) erişebilirsiniz 
 Postman Koleksiyonun değişkenler bölümünde base-url ve token bilgilerini kendinize göre ayarlamayı unutmayın.
 Seed çalıştırırsanız varsayılan giriş bilgileriniz aşağıdaki gibi olacaktır. 
 
